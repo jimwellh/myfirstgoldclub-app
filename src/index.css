@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8F7F3;
+    color: #19231D;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Custom golf range slider styling with full drag support */
+input[type="range"].golf-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 9999px;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+input[type="range"].golf-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #12291E;
+  border: 3px solid #C8A86B;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+input[type="range"].golf-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  background: #1B4332;
+}
+
+input[type="range"].golf-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+  background: #0F2319;
+}
+
+input[type="range"].golf-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #12291E;
+  border: 3px solid #C8A86B;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+input[type="range"].golf-slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  background: #1B4332;
+}
+
+input[type="range"].golf-slider::-moz-range-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+}
+
+/* Print styling for equipment spec card */
+@media print {
+  header, footer, button, .no-print {
+    display: none !important;
+  }
+}
