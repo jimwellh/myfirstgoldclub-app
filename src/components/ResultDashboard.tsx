@@ -26,6 +26,7 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
 }) => {
   const [copiedSummary, setCopiedSummary] = useState(false);
   const [copiedAiPrompt, setCopiedAiPrompt] = useState(false);
+  const isWood = answers.targetType === 'wood';
 
   const handleCopySummary = () => {
     const summaryText = `【我的第一組高爾夫球桿・規格診斷筆記】
@@ -33,12 +34,18 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
 ・桿頭結構：${spec.headStructure} (${spec.headProcess})
 ・桿身材質：${spec.shaftMaterial}
 ・桿身硬度：${spec.shaftFlex}
-・身高校驗：${spec.shaftLength} / Lie Angle: ${spec.lieAngle}
+・${isWood ? '桿長與套管設定' : '身高校驗'}：${spec.shaftLength} / ${spec.lieAngle}
 ・揮桿重量：${spec.swingWeight}
 ・慣用建議：${answers.handOrientation === 'left' ? '左手款式專屬 (LH)' : '右手通用規格 (RH)'}
 ・首選推薦品牌：${spec.recommendedBrands.map((b) => `${b.name} (${b.matchScore}%)`).join('、')}
 ・延伸備選品牌：${spec.alternativeBrands.map((b) => b.name).join('、')}
-・採購策略：${answers.considerUsed ? '可考慮優質二手（需檢查桿面溝槽與桿身微裂紋）' : '建議全新公司貨原廠保固'}
+・採購策略：${
+      answers.considerUsed
+        ? isWood
+          ? '可考慮優質二手（需檢查碳纖頂蓋、桿面平整度與可調套管）'
+          : '可考慮優質二手（需檢查桿面溝槽與桿身微裂紋）'
+        : '建議全新公司貨原廠保固'
+    }
 ・搜尋關鍵字：${spec.searchKeywords.join(' ')}`;
 
     navigator.clipboard.writeText(summaryText).then(() => {
@@ -60,9 +67,9 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
       <div className="bg-[#12291E] text-white rounded-2xl p-6 sm:p-8 border border-[#234233] relative overflow-hidden shadow-md">
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-2 text-xs font-semibold text-[#C8A86B] tracking-wider mb-2">
-            <span>球桿工坊專業診斷出爐</span>
+            <span>{isWood ? '木桿工坊專業診斷出爐' : '球桿工坊專業診斷出爐'}</span>
             <span aria-hidden="true">·</span>
-            <span>32 大品牌與多維度規格加權匹配</span>
+            <span>多維度規格加權匹配</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">
             {spec.article.headline}
@@ -78,7 +85,7 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C8A86B] hover:bg-[#d8b97d] text-[#12291E] font-bold text-sm transition-all shadow-sm cursor-pointer whitespace-nowrap"
             >
-              <span>在 Google Shopping 搜尋推薦球桿</span>
+              <span>在 Google Shopping 搜尋推薦{isWood ? '木桿' : '球桿'}</span>
               <ExternalLink className="w-4 h-4" />
             </a>
 
@@ -114,7 +121,7 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
         <div className="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-[#1B4332]/40 blur-3xl pointer-events-none" />
       </div>
 
-      {/* 刀背警語區塊（若選擇一次到位直上刀背/選手級） */}
+      {/* 一次到位高難度警語區塊（區分木桿 Low Spin 與鐵桿鍛造刀背） */}
       {spec.bladeWarning && (
         <div className="bg-amber-50/90 border border-amber-200 rounded-2xl p-5 sm:p-6 text-amber-950 shadow-xs">
           <div className="flex items-start gap-3">
@@ -123,7 +130,9 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
             </div>
             <div className="space-y-1.5">
               <h2 className="text-base font-bold text-amber-900">
-                初學者高難度警語：一次到位直上職業級刀背 / 競技桿頭上手極難
+                {isWood
+                  ? '初學者高難度警語：一次到位直上低後旋（Low Spin）巡迴賽木桿上手極難'
+                  : '初學者高難度警語：一次到位直上職業級鍛造刀背（Muscle Back）上手極難'}
               </h2>
               <p className="text-xs sm:text-sm text-amber-800 leading-relaxed">
                 {spec.bladeWarningText}
@@ -134,7 +143,7 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
                   onClick={() => onEditStep(1)}
                   className="text-xs font-semibold text-amber-900 underline hover:text-amber-950 cursor-pointer"
                 >
-                  想要更輕鬆起球？點此修改「購買策略」為長久使用或循序漸進 →
+                  想要更輕鬆開球與高容錯？點此修改「購買策略」為長久使用或循序漸進 →
                 </button>
               </div>
             </div>
@@ -145,7 +154,9 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
       {/* 核心規格速查矩陣 */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-[#12291E]">核心硬體規格速查卡</h2>
+          <h2 className="text-xl font-bold text-[#12291E]">
+            {isWood ? '木桿專屬硬體規格速查卡' : '核心硬體規格速查卡'}
+          </h2>
           <span className="text-xs text-stone-500">拿去球具店直接讓老闆抓桿，或複製去問聯網 AI</span>
         </div>
 
@@ -154,14 +165,14 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
           <div className="bg-white p-5 rounded-xl border border-[#E5E0D5] shadow-xs flex flex-col justify-between">
             <div>
               <div className="text-xs font-semibold text-stone-500 mb-1 flex items-center justify-between">
-                <span>桿頭型態構造</span>
-                <span className="text-[11px] text-[#C8A86B]">容錯核心</span>
+                <span>{isWood ? '木桿桿頭型式與傾角 (Loft)' : '桿頭型態構造'}</span>
+                <span className="text-[11px] text-[#C8A86B]">{isWood ? 'MOI 與起飛角' : '容錯核心'}</span>
               </div>
               <div className="text-base font-bold text-[#12291E] mb-2 leading-snug">
                 {spec.headStructure}
               </div>
               <div className="text-xs text-stone-600 bg-[#F9F8F5] p-2.5 rounded-lg border border-[#EDE8DC]">
-                製程：{spec.headProcess}
+                材質與結構：{spec.headProcess}
               </div>
             </div>
             <button
@@ -176,15 +187,15 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
           <div className="bg-white p-5 rounded-xl border border-[#E5E0D5] shadow-xs flex flex-col justify-between">
             <div>
               <div className="text-xs font-semibold text-stone-500 mb-1 flex items-center justify-between">
-                <span>桿身材質與重量段</span>
+                <span>{isWood ? '木桿碳纖桿身重量與折點' : '桿身材質與重量段'}</span>
                 <span className="text-[11px] text-[#C8A86B]">揮桿靈魂</span>
               </div>
               <div className="text-base font-bold text-[#12291E] mb-2 leading-snug">
                 {spec.shaftMaterial}
               </div>
-              <div className="text-xs text-stone-600 bg-[#F9F8F5] p-2.5 rounded-lg border border-[#EDE8DC] flex items-center justify-between">
-                <span>建議彈性 (Flex)：</span>
-                <span className="font-bold text-[#12291E]">{spec.shaftFlex}</span>
+              <div className="text-xs text-stone-600 bg-[#F9F8F5] p-2.5 rounded-lg border border-[#EDE8DC] flex items-center justify-between gap-2">
+                <span className="shrink-0">建議硬度：</span>
+                <span className="font-bold text-[#12291E] text-right">{spec.shaftFlex}</span>
               </div>
             </div>
             <button
@@ -195,18 +206,18 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
             </button>
           </div>
 
-          {/* 3. 身高校驗與仰角 */}
+          {/* 3. 身高校驗與仰角 / 套管設定 */}
           <div className="bg-white p-5 rounded-xl border border-[#E5E0D5] shadow-xs flex flex-col justify-between">
             <div>
               <div className="text-xs font-semibold text-stone-500 mb-1 flex items-center justify-between">
-                <span>身高校驗 & 仰角 (Lie Angle)</span>
-                <span className="text-[11px] text-[#C8A86B]">觸地幾何</span>
+                <span>{isWood ? '木桿長度 & 可調式套管設定' : '身高校驗 & 仰角 (Lie Angle)'}</span>
+                <span className="text-[11px] text-[#C8A86B]">{isWood ? '套管調校' : '觸地幾何'}</span>
               </div>
               <div className="text-base font-bold text-[#12291E] mb-2 leading-snug">
                 {spec.shaftLength}
               </div>
               <div className="text-xs text-stone-600 bg-[#F9F8F5] p-2.5 rounded-lg border border-[#EDE8DC]">
-                Lie Angle：{spec.lieAngle}
+                {isWood ? `套管建議：${spec.lieAngle}` : `Lie Angle：${spec.lieAngle}`}
               </div>
             </div>
             <button
@@ -228,7 +239,9 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
                 {spec.swingWeight}
               </div>
               <p className="text-xs text-stone-500 leading-relaxed">
-                確保下桿時桿頭有足夠的下墜釋放感，又不至於使前臂與手腕過早疲勞。
+                {isWood
+                  ? '確保長達 45 吋的開球木桿能順暢釋放桿頭初速，同時維持擊球瞬間桿面回正。'
+                  : '確保下桿時桿頭有足夠的下墜釋放感，又不至於使前臂與手腕過早疲勞。'}
               </p>
             </div>
             <div className="mt-3 text-[11px] text-stone-500">工坊標準配重區間</div>
@@ -291,10 +304,10 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
             <h2 className="text-xl font-bold text-[#12291E]">
-              專屬加權匹配品牌榜（Top 6 核心推薦）
+              專屬加權匹配{isWood ? '木桿' : ''}品牌榜（Top 6 核心推薦）
             </h2>
             <p className="text-xs text-stone-500 mt-0.5">
-              系統綜合您的「品項、購桿策略、預算、身高慣用手、二手意願、品牌地域與調性」從 32 個品牌計算出最佳匹配名單
+              系統綜合您的「{isWood ? '木桿需求' : '品項'}、購桿策略、預算、身高慣用手、二手意願、品牌地域與調性」計算出最佳匹配名單
             </p>
           </div>
           <button
@@ -374,13 +387,17 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
         <div className="border-b border-[#F0ECE1] pb-6">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#C8A86B] mb-2">
             <Compass className="w-4 h-4" />
-            <span>球具工坊顧問綜合專文</span>
+            <span>{isWood ? '木桿工坊顧問綜合專文' : '球具工坊顧問綜合專文'}</span>
           </div>
           <h2 className="text-2xl font-bold text-[#12291E] leading-tight">
-            不綁定特定年份型號，教你用行家的眼光挑選第一組命定球桿
+            {isWood
+              ? '不綁定特定年份型號，教你用行家的眼光挑選第一支開球木與球道木'
+              : '不綁定特定年份型號，教你用行家的眼光挑選第一組命定球桿'}
           </h2>
           <p className="text-xs text-stone-500 mt-2">
-            球桿型號每年更迭，但掌握了「重心深度、鍛造鑄造製程、桿身重量硬度與品牌血統」，到任何球具店都不怕被話術推銷庫存。
+            {isWood
+              ? '木桿型號每年更迭，但掌握了「MOI 慣性矩、防右曲配重、傾角套管（Loft Sleeve）與碳纖桿身重量扭矩」，到任何球具店都不怕買錯。'
+              : '球桿型號每年更迭，但掌握了「重心深度、鍛造鑄造製程、桿身重量硬度與品牌血統」，到任何球具店都不怕被話術推銷庫存。'}
           </p>
         </div>
 
@@ -487,43 +504,78 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
         </div>
       </article>
 
-      {/* 新手高球球桿問答指南 (FAQ) */}
+      {/* 新手高球球桿問答指南 (FAQ - 依「木桿」或「鐵桿/全套」動態切換專屬題庫) */}
       <div id="faq-guide" className="bg-[#EFECE6] rounded-2xl p-6 sm:p-8 border border-[#DDD7CD] space-y-6">
         <div>
-          <h2 className="text-xl font-bold text-[#12291E]">高爾夫新手速成知識庫</h2>
+          <h2 className="text-xl font-bold text-[#12291E]">
+            {isWood ? '高爾夫木桿新手速成知識庫' : '高爾夫新手速成知識庫'}
+          </h2>
           <p className="text-xs text-stone-600 mt-1">
-            快速搞懂球具店名詞，買球桿不當冤大頭
+            {isWood
+              ? '搞懂一號木、球道木與小雞腿的核心差異，買木桿不走冤枉路'
+              : '快速搞懂球具店名詞，買球桿不當冤大頭'}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
-            <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
-              Q1: 鍛造（Forged）與鑄造（Cast）差在哪？
-            </h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              鍛造由軟鐵鋼坯經高噸數沖壓成型，金屬內部緻密無氣孔，擊球手感綿密粘球；鑄造則是將鐵水澆灌入模具，可輕易做出複雜的低深凹背與鎢鋼配重，容錯率更高且成本更低。初學者不需迷信純刀背鍛造，複合凹背或鑄造反而更易起球！
-            </p>
-          </div>
+        {isWood ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q1: 一號木桿的 9°、10.5°、12° 角度（Loft）怎麼選？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                角度越小（如 9°）需要越快的揮桿速度才打得起來，且容易產生側旋右曲；新手男性強烈建議從 10.5° 開始，女性或揮速較平緩者建議選 11.5°~12.5°，不僅更容易打出高飛遠球，方向也會直非常多！
+              </p>
+            </div>
 
-          <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
-            <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
-              Q2: 碳纖維桿身與鋼管桿身怎麼選？
-            </h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              重量是關鍵！碳纖桿身重量一般在 40g~65g，彈性好、吸震強，能幫揮速較慢或女性球友增加球速；鋼管桿身在 85g~125g，方向穩定性與抗扭力強，適合體能良好或重視落點精準的男性球友。
-            </p>
-          </div>
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q2: 3號木、5號球道木與鐵木桿（小雞腿）怎麼選？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                3 號球道木（15°）桿身極長且角度小，是整袋球桿中在草皮上最難打好的一支！新手若要補齊遠距球道木，強烈建議直接買「5 號木（18°）」與「4 號或 5 號鐵木桿（Hybrid 小雞腿）」，起球成功率高出數倍。
+              </p>
+            </div>
 
-          <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
-            <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
-              Q3: 買二手球桿要注意什麼？
-            </h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              最怕買到「翻新假桿」或「桿面溝槽磨平的球桿」。購買時請檢查桿面溝槽是否仍有摩擦咬球感、碳纖桿身是否有托運壓損微裂紋，並預留更換老化橡膠握把的預算。
-            </p>
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q3: 買二手碳纖頂蓋木桿要注意什麼暗傷？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                現代木桿多採用「超薄鈦合金桿面＋碳纖維頂蓋」。買二手時務必檢查頂蓋接合處是否有細微裂痕或脫膠、桿面中心是否微凹，並轉動桿頸可調式套管螺絲確認未滑牙。
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q1: 鍛造（Forged）與鑄造（Cast）差在哪？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                鍛造由軟鐵鋼坯經高噸數沖壓成型，金屬內部緻密無氣孔，擊球手感綿密粘球；鑄造則是將鐵水澆灌入模具，可輕易做出複雜的低深凹背與鎢鋼配重，容錯率更高且成本更低。初學者不需迷信純刀背鍛造，複合凹背或鑄造反而更易起球！
+              </p>
+            </div>
+
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q2: 碳纖維桿身與鋼管桿身怎麼選？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                重量是關鍵！碳纖桿身重量一般在 40g~65g，彈性好、吸震強，能幫揮速較慢或女性球友增加球速；鋼管桿身在 85g~125g，方向穩定性與抗扭力強，適合體能良好或重視落點精準的男性球友。
+              </p>
+            </div>
+
+            <div className="bg-white p-4.5 rounded-xl border border-[#E5E0D5]">
+              <h4 className="font-bold text-sm text-[#12291E] mb-1.5">
+                Q3: 買二手球桿要注意什麼？
+              </h4>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                最怕買到「翻新假桿」或「桿面溝槽磨平的球桿」。購買時請檢查桿面溝槽是否仍有摩擦咬球感、碳纖桿身是否有托運壓損微裂紋，並預留更換老化橡膠握把的預算。
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 回饋問題與聯絡區塊 */}

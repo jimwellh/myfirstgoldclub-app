@@ -24,6 +24,61 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
   totalSteps,
 }) => {
   const isLastStep = currentStep === totalSteps - 1;
+  const isWood = answers.targetType === 'wood';
+
+  const purchaseStrategyOptions = isWood
+    ? [
+        {
+          id: 'all_in_one' as PurchaseStrategy,
+          title: '一次到位 (直上職業級低後旋競技木桿)',
+          sub: 'Low Spin (LS) / 440~450cc 巡迴賽桿頭',
+          desc: '直接選用巡迴賽選手偏好的前置重心、低後旋（Low Spin）開球木與小桿頭球道木，球風強勁抗風且易於做球。（⚠️ 請注意：MOI 容錯率較低，揮速不足或觸球偏離中心時極易產生嚴重側旋與掉距離！）',
+        },
+        {
+          id: 'long_term' as PurchaseStrategy,
+          title: '長久使用 (中庸之道，平衡型可調式碳纖複合木桿)',
+          sub: '460cc 標準平衡型 MAX / 可調式傾角套管',
+          desc: '結合高初速鍛造鈦桿面、碳纖維頂蓋與可調式套管（Adjustable Sleeve）。兼具遠距爆發力與穩定容錯，未來揮速提升也能透過調整配重與傾角持續使用 3~5 年。',
+        },
+        {
+          id: 'gradual' as PurchaseStrategy,
+          title: '循序漸進 (從超高容錯與防右曲開始)',
+          sub: '超高 MOI / Draw-Bias 防右曲大甜點木桿',
+          desc: '專為解決新手開球大右曲（Slice）與起球困難設計！採用後置深重心與跟部加重（MAX-D），搭配高容錯鐵木桿（Hybrid 小雞腿），輕鬆打出又高又直的開球。',
+        },
+        {
+          id: 'budget_first' as PurchaseStrategy,
+          title: '預算優先 (挑選高CP值鈦合金木桿組合)',
+          sub: '經典前代旗艦 / 高性價比球道木與小雞腿',
+          desc: '不追當季昂貴新品，鎖定性價比極高的 460cc 鈦合金開球木與好打的球道木/鐵木桿，把預算留給練習場球券與教練課。',
+        },
+      ]
+    : [
+        {
+          id: 'all_in_one' as PurchaseStrategy,
+          title: '一次到位 (直上職業級球桿)',
+          sub: '鍛造刀背 / Tour 巡迴賽外型',
+          desc: '不走冤枉路，直接挑選外型極致簡約鋒利的鍛造刀背或職業級桿頭。擁有最敏銳純粹的擊球手感。（⚠️ 請注意：甜區極小，失擊會震手且距離大幅縮水，上手難度高，需有毅力練球！）',
+        },
+        {
+          id: 'long_term' as PurchaseStrategy,
+          title: '長久使用 (中庸之道，稍微進階的平衡型球桿)',
+          sub: '中空鍛造 / 微階半凹背',
+          desc: '具備接近刀背的俐落顏值與窄頂線，但桿頭內部融入容錯科技。打感扎實且具備良好飛行距離穩定性，差點進步到單差點前都不用換桿。',
+        },
+        {
+          id: 'gradual' as PurchaseStrategy,
+          title: '循序漸進 (從易打性高開始)',
+          sub: '寬底深凹背 (Game Improvement)',
+          desc: '超大桿面、超低重心、深凹背設計。即使沒打中正中心，齒輪效應也能讓小白球高高飛向空中，建立滿滿擊球信心與樂趣。',
+        },
+        {
+          id: 'budget_first' as PurchaseStrategy,
+          title: '預算優先 (挑選高CP值組合)',
+          sub: '極致性價比實用導向',
+          desc: '把錢花在刀口上，挑選耐操好打且折舊率低的實用套裝或平價品牌，省下的預算拿去買練球券與教練課。',
+        },
+      ];
 
   return (
     <div className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 shadow-xs max-w-3xl mx-auto">
@@ -74,9 +129,9 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
               },
               {
                 id: 'wood' as TargetType,
-                title: '木桿系列 (Driver 開球一號木 / 球道木)',
-                sub: '追求球道轟擊遠距的開球利器',
-                desc: '已有鐵桿，打算單獨選購一支配重得宜、大容錯且好起球的發球木桿（Driver）或易打的鐵木桿（Hybrid/Utility）。',
+                title: '木桿系列 (Driver 開球一號木 / 球道木 / 鐵木桿)',
+                sub: '追求球道轟擊遠距與開球穩定度',
+                desc: '已有鐵桿，打算單獨選購一支配重得宜、高初速且防右曲的發球木桿（Driver）、球道木（Fairway Wood）或易打的鐵木桿（Hybrid/小雞腿）。',
               },
             ].map((option) => (
               <button
@@ -121,7 +176,7 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
         </div>
       )}
 
-      {/* 題目 1: 你偏好怎麼購買第一支球桿? */}
+      {/* 題目 1: 你偏好怎麼購買第一支球桿? (根據木桿或鐵桿/全套動態切換專屬說明) */}
       {currentStep === 1 && (
         <div className="space-y-6 animate-fade-in">
           <div>
@@ -129,40 +184,17 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
               問題 1 / 6
             </span>
             <h2 className="text-2xl font-bold text-[#12291E] mb-2">
-              你偏好怎麼購買第一支球桿？
+              {isWood ? '你偏好怎麼挑選這支木桿？' : '你偏好怎麼購買第一組球桿？'}
             </h2>
             <p className="text-sm text-stone-600">
-              這決定了桿頭構造（刀背/半凹背/深凹背）與容錯率（Forgiveness）的取捨：
+              {isWood
+                ? '這決定了木桿桿頭的配重幾何（Low Spin 低後旋 / 標準平衡 MAX / Draw-Bias 防右曲）與起球難度：'
+                : '這決定了桿頭構造（刀背/半凹背/深凹背）與容錯率（Forgiveness）的取捨：'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-3.5">
-            {[
-              {
-                id: 'all_in_one' as PurchaseStrategy,
-                title: '一次到位 (直上職業級球桿)',
-                sub: '鍛造刀背 / Tour 巡迴賽外型',
-                desc: '不走冤枉路，直接挑選外型極致簡約鋒利的鍛造刀背或職業級桿頭。擁有最敏銳純粹的擊球手感。（⚠️ 請注意：甜區極小，失擊會震手且距離大幅縮水，上手難度高，需有毅力練球！）',
-              },
-              {
-                id: 'long_term' as PurchaseStrategy,
-                title: '長久使用 (中庸之道，稍微進階的平衡型球桿)',
-                sub: '中空鍛造 / 微階半凹背',
-                desc: '具備接近刀背的俐落顏值與窄頂線，但桿頭內部融入容錯科技。打感扎實且具備良好飛行距離穩定性，差點進步到單差點前都不用換桿。',
-              },
-              {
-                id: 'gradual' as PurchaseStrategy,
-                title: '循序漸進 (從易打性高開始)',
-                sub: '寬底深凹背 (Game Improvement)',
-                desc: '超大桿面、超低重心、深凹背設計。即使沒打中正中心，齒輪效應也能讓小白球高高飛向空中，建立滿滿擊球信心與樂趣。',
-              },
-              {
-                id: 'budget_first' as PurchaseStrategy,
-                title: '預算優先 (挑選高CP值組合)',
-                sub: '極致性價比實用導向',
-                desc: '把錢花在刀口上，挑選耐操好打且折舊率低的實用套裝或平價品牌，省下的預算拿去買練球券與教練課。',
-              },
-            ].map((option) => (
+            {purchaseStrategyOptions.map((option) => (
               <button
                 key={option.id}
                 type="button"
@@ -236,7 +268,9 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
             </span>
             <h2 className="text-2xl font-bold text-[#12291E] mb-2">你的身高與擊球習慣？</h2>
             <p className="text-sm text-stone-600">
-              這將用於計算桿身配重、長度微調、仰角（Lie Angle）及左右手現貨庫存：
+              {isWood
+                ? '這將用於計算木桿碳纖桿身重量（40g~70g）、硬度（Flex）、桿長與可調式套管設定：'
+                : '這將用於計算桿身配重、長度微調、仰角（Lie Angle）及左右手現貨庫存：'}
             </p>
           </div>
 
@@ -285,7 +319,9 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
                   answers.considerUsed ? 'text-stone-300' : 'text-stone-600'
                 }`}
               >
-                用 3~5 折預算享受 2~3 年前的大廠旗艦款！報告將特別為您附上「二手球桿防暗傷與避坑指南」。
+                {isWood
+                  ? '用半價入手前 1~2 代的頂級碳纖複合開球木！報告將附上「二手木桿碳纖頂蓋、桿面裂痕與套管檢查指南」。'
+                  : '用 3~5 折預算享受 2~3 年前的大廠旗艦款！報告將特別為您附上「二手球桿防暗傷與避坑指南」。'}
               </p>
             </button>
 
@@ -309,7 +345,7 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
                   !answers.considerUsed ? 'text-stone-300' : 'text-stone-600'
                 }`}
               >
-                享受完整原廠保固與最新反彈科技，擊球安心無虞，不需擔心假桿或桿面溝槽磨損問題。
+                享受完整原廠保固與最新反彈科技，擊球安心無虞，不需擔心假桿或桿頭暗傷問題。
               </p>
             </button>
           </div>
@@ -334,14 +370,22 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
               {
                 id: 'japanese' as BrandOrigin,
                 title: '日系品牌 (Japanese Heritage)',
-                sub: 'Mizuno, XXIO, Srixon, Honma, Miura, Epon...',
-                desc: '強調軟鐵鍛造極致打感、輕量化高起球彈性桿身，更貼合亞洲人體型與揮桿節奏。手工鍛造細節嚴謹，金屬光澤溫潤細膩。',
+                sub: isWood
+                  ? 'XXIO, Yamaha, PRGR, Honma, Ryoma, Majesty, Roddio...'
+                  : 'Mizuno, XXIO, Srixon, Honma, Miura, Epon...',
+                desc: isWood
+                  ? '主打輕量化高起球、手捲多軸碳纖桿身與悅耳清脆的金屬擊球共鳴音，特別適合亞洲球友揮桿節奏。'
+                  : '強調軟鐵鍛造極致打感、輕量化高起球彈性桿身，更貼合亞洲人體型與揮桿節奏。手工鍛造細節嚴謹，金屬光澤溫潤細膩。',
               },
               {
                 id: 'western' as BrandOrigin,
                 title: '歐美品牌 (American / Western Tour Tech)',
-                sub: 'Titleist, TaylorMade, Callaway, Ping, PXG, McLaren Golf...',
-                desc: '主打高科技材料學、碳纖維空氣動力學、AI 計算桿面與超大 MOI 慣性矩容錯。球速極快且巡迴賽曝光度極高，左手規格最齊全。',
+                sub: isWood
+                  ? 'Ping, TaylorMade, Callaway, Titleist, Cobra, PXG...'
+                  : 'Titleist, TaylorMade, Callaway, Ping, PXG, McLaren Golf...',
+                desc: isWood
+                  ? '開球木桿與球道木的科技領頭羊！主導多層碳纖維桿面、AI 智慧甜區、空氣力學低風阻與破萬 MOI 極致容錯。'
+                  : '主打高科技材料學、碳纖維空氣動力學、AI 計算桿面與超大 MOI 慣性矩容錯。球速極快且巡迴賽曝光度極高，左手規格最齊全。',
               },
               {
                 id: 'other' as BrandOrigin,
@@ -353,7 +397,7 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
                 id: 'no_preference' as BrandOrigin,
                 title: '無偏好 (No Preference)',
                 sub: '不分歐美日系，純看哪個品牌最符合我的規格與預算',
-                desc: '交由系統根據您的「購買品項、購桿策略、預算甜蜜點與體型慣用手」在全部 26 個全球品牌中客觀評選出最高分名單。',
+                desc: '交由系統根據您的「購買品項、購桿策略、預算甜蜜點與體型慣用手」在全部品牌中客觀評選出最高分名單。',
               },
             ].map((option) => (
               <button
@@ -416,19 +460,23 @@ export const QuestionWizard: React.FC<QuestionWizardProps> = ({
               {
                 id: 'expert' as BrandVibe,
                 title: '本格派裝備取向 (主流職業首選品牌 / 經典工藝)',
-                sub: 'Titleist, Mizuno Pro, Ping, Srixon, Miura, Epon...',
-                desc: '外觀低調洗鍊、線條純粹無多餘花俏裝飾，球袋一拉開就散發「正統實戰練家子」氣場，專注於紮實手感與真實操控力。',
+                sub: isWood
+                  ? 'Titleist, Ping, TaylorMade, Callaway, Srixon, PRGR...'
+                  : 'Titleist, Mizuno Pro, Ping, Srixon, Miura, Epon...',
+                desc: '外觀低調洗鍊、線條純粹無多餘花俏裝飾，球袋一拉開就散發「正統實戰練家子」氣場，專注於紮實回饋與真實操控力。',
               },
               {
                 id: 'luxury' as BrandVibe,
                 title: '帶奢侈品屬性 (奢華精品尊榮感)',
-                sub: 'Honma, Majesty, PXG 旗艦, McLaren Golf...',
-                desc: '尊榮華貴的金屬質素、多軸碳纖維、MIM 金屬射出成型與精緻配重工藝。走到任何球場會館都是全場注目焦點。',
+                sub: isWood
+                  ? 'Majesty, Honma, Ryoma, Roddio, PXG...'
+                  : 'Honma, Majesty, PXG 旗艦, McLaren Golf...',
+                desc: '尊榮華貴的金屬質素、多軸碳纖維與精緻配重工藝。走到任何球場發球台都是全場注目焦點。',
               },
               {
                 id: 'budget_practice' as BrandVibe,
                 title: '第一組練習用買最便宜的就好 (極致性價比入門款)',
-                sub: 'PGM (淘寶), Costco Kirkland, 迪卡農 Inesis, Wilson...',
+                sub: 'PGM (淘寶), Costco Kirkland, 迪卡農 Inesis, Tour Edge...',
                 desc: '實用主義無負擔！初學者在練習場用力揮擊不怕敲壞，花最少成本掌握高爾夫基本揮桿，建立成就感。',
               },
               {

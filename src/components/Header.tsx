@@ -18,11 +18,15 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#12291E] border-b border-[#234233] text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Wordmark (Single text element) */}
+        {/* Zone 1: Brand Wordmark & App Emblem */}
         <div className="flex items-center gap-3 shrink-0">
-          <div className="w-8 h-8 rounded-full bg-[#C8A86B]/20 border border-[#C8A86B] flex items-center justify-center text-[#C8A86B] font-bold text-sm">
-            ⛳
-          </div>
+          <img
+            src="/favicon.svg"
+            alt="我的第一組高爾夫球桿選擇器 圖示"
+            referrerPolicy="no-referrer"
+            onClick={onReset}
+            className="w-9 h-9 rounded-lg shadow-xs cursor-pointer shrink-0"
+          />
           <span 
             onClick={onReset}
             className="text-lg font-bold tracking-tight text-white cursor-pointer hover:text-[#C8A86B] transition-colors whitespace-nowrap shrink-0"

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#193A2B" />
+      <stop offset="55%" stop-color="#12291E" />
+      <stop offset="100%" stop-color="#0A1912" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8D19B" />
+      <stop offset="50%" stop-color="#C8A86B" />
+      <stop offset="100%" stop-color="#9A7B3E" />
+    </linearGradient>
+    <linearGradient id="ivoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#EAE4D7" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="48%">
+      <stop offset="0%" stop-color="#C8A86B" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#C8A86B" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Rounded Luxury App Icon Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <circle cx="256" cy="210" r="220" fill="url(#glow)" />
+
+  <!-- Outer & Inner Gold Crest Frame -->
+  <rect x="28" y="28" width="456" height="456" rx="90" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-opacity="0.45" />
+  <rect x="42" y="42" width="428" height="428" rx="80" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.22" />
+
+  <!-- Fairway Horizon Arc at Bottom -->
+  <path d="M 56 385 Q 256 335 456 385 L 456 440 Q 456 470 426 470 L 86 470 Q 56 470 56 440 Z" fill="#1E4633" fill-opacity="0.55" />
+  <path d="M 64 385 Q 256 335 448 385" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.6" />
+
+  <!-- Crossed Golf Shafts (Gold) -->
+  <line x1="128" y1="360" x2="368" y2="115" stroke="url(#goldGrad)" stroke-width="11" stroke-linecap="round" />
+  <line x1="384" y1="360" x2="144" y2="115" stroke="url(#goldGrad)" stroke-width="11" stroke-linecap="round" />
+
+  <!-- Left Club Grip & Right Club Grip (Top) -->
+  <line x1="144" y1="115" x2="118" y2="88" stroke="#F8F7F3" stroke-width="15" stroke-linecap="round" />
+  <line x1="368" y1="115" x2="394" y2="88" stroke="#F8F7F3" stroke-width="15" stroke-linecap="round" />
+
+  <!-- Left Bottom: Forged Iron Head Silhouette -->
+  <path d="M 134 352 L 88 378 C 72 388 74 410 95 414 L 154 414 C 166 414 172 402 164 390 Z" fill="url(#goldGrad)" />
+  <line x1="98" y1="392" x2="145" y2="392" stroke="#12291E" stroke-width="3" stroke-linecap="round" />
+  <line x1="94" y1="401" x2="148" y2="401" stroke="#12291E" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Right Bottom: Driver / Wood Head Silhouette -->
+  <path d="M 378 352 L 426 376 C 444 386 440 414 414 416 L 356 414 C 344 412 342 396 352 384 Z" fill="url(#goldGrad)" />
+  <path d="M 366 392 Q 395 386 422 395" fill="none" stroke="#12291E" stroke-width="3.5" stroke-linecap="round" />
+
+  <!-- Center Shield / Crest Medallion -->
+  <circle cx="256" cy="236" r="88" fill="#0F2319" stroke="url(#goldGrad)" stroke-width="6" />
+  <circle cx="256" cy="236" r="76" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="6 5" />
+
+  <!-- Golf Ball Inside Medallion -->
+  <circle cx="256" cy="222" r="44" fill="url(#ivoryGrad)" />
+  <!-- Dimples on Golf Ball -->
+  <circle cx="242" cy="206" r="4" fill="#D5CEC0" />
+  <circle cx="256" cy="202" r="4" fill="#D5CEC0" />
+  <circle cx="270" cy="206" r="4" fill="#D5CEC0" />
+  <circle cx="234" cy="218" r="4" fill="#D5CEC0" />
+  <circle cx="249" cy="216" r="4" fill="#D5CEC0" />
+  <circle cx="263" cy="216" r="4" fill="#D5CEC0" />
+  <circle cx="278" cy="218" r="4" fill="#D5CEC0" />
+  <circle cx="242" cy="230" r="4" fill="#D5CEC0" />
+  <circle cx="256" cy="228" r="4" fill="#D5CEC0" />
+  <circle cx="270" cy="230" r="4" fill="#D5CEC0" />
+
+  <!-- Gold Golf Tee Supporting the Ball -->
+  <path d="M 236 268 L 276 268 L 262 286 L 260 310 L 252 310 L 250 286 Z" fill="url(#goldGrad)" />
+
+  <!-- Top Crown / 3 Stars for 1st Golf Club Selector -->
+  <polygon points="256,96 262,110 277,112 266,122 269,136 256,129 243,136 246,122 235,112 250,110" fill="url(#goldGrad)" />
+
+  <!-- Bottom Badge Label: "1ST GOLF CLUB" -->
+  <rect x="146" y="410" width="220" height="38" rx="8" fill="#0F2319" stroke="url(#goldGrad)" stroke-width="2.5" />
+  <text x="256" y="435" text-anchor="middle" fill="#E8D19B" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="20" letter-spacing="3">1ST CLUB FIT</text>
+</svg>

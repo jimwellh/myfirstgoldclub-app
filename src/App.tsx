@@ -68,46 +68,64 @@ export default function App() {
           /* 歡迎導引首頁 (Zero-State Hero) */
           <div className="space-y-12">
             <div className="bg-[#12291E] rounded-3xl p-8 sm:p-12 text-white border border-[#234233] relative overflow-hidden shadow-lg">
-              <div className="relative z-10 max-w-3xl space-y-6">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#C8A86B] uppercase tracking-wider">
-                  <span>高爾夫新手專屬導引</span>
-                  <span aria-hidden="true">·</span>
-                  <span>純靜態工坊決策樹 · 23+ 全球主流與精品品牌資料庫</span>
+              <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div className="max-w-2xl space-y-6">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#C8A86B] uppercase tracking-wider">
+                    <span>高爾夫新手專屬導引</span>
+                    <span aria-hidden="true">·</span>
+                    <span>純靜態工坊決策樹 · 23+ 全球主流與精品品牌資料庫</span>
+                  </div>
+
+                  <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                    我的第一組高爾夫球桿選擇器
+                  </h1>
+
+                  <p className="text-base sm:text-lg text-stone-300 leading-relaxed max-w-2xl">
+                    剛接觸高爾夫，面對琳琅滿目的球桿規格、鍛造鑄造與桿身軟硬度感到茫然？
+                    透過 7 道循序漸進的結構化面試，即時加權運算最適合您體格、預算與擊球目標的第一組球桿，並一鍵直串 Google Shopping 或複製規格去問聯網 AI。
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-4 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHasStarted(true);
+                        setCurrentStep(0);
+                      }}
+                      className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#C8A86B] hover:bg-[#d8b97d] text-[#12291E] font-bold text-base transition-all shadow-md cursor-pointer hover:shadow-lg transform active:scale-98"
+                    >
+                      <span>開始 2 分鐘選桿面試</span>
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+
+                    <div className="text-xs text-stone-300 flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-[#C8A86B]" />
+                      <span>完整涵蓋歐美巡迴賽、日系工坊手工鍛造、超跑科技與平價量販神桿</span>
+                    </div>
+                  </div>
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                  我的第一組高爾夫球桿選擇器
-                </h1>
-
-                <p className="text-base sm:text-lg text-stone-300 leading-relaxed max-w-2xl">
-                  剛接觸高爾夫，面對琳琅滿目的球桿規格、鍛造鑄造與桿身軟硬度感到茫然？
-                  透過 7 道循序漸進的結構化面試，即時加權運算最適合您體格、預算與擊球目標的第一組球桿，並一鍵直串 Google Shopping 或複製規格去問聯網 AI。
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setHasStarted(true);
-                      setCurrentStep(0);
-                    }}
-                    className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#C8A86B] hover:bg-[#d8b97d] text-[#12291E] font-bold text-base transition-all shadow-md cursor-pointer hover:shadow-lg transform active:scale-98"
-                  >
-                    <span>開始 2 分鐘選桿面試</span>
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-
-                  <div className="text-xs text-stone-300 flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#C8A86B]" />
-                    <span>完整涵蓋歐美巡迴賽、日系工坊手工鍛造、超跑科技與平價量販神桿</span>
+                {/* App 專屬封面縮圖展示卡 */}
+                <div className="flex flex-col items-center shrink-0 mx-auto lg:mx-0">
+                  <div className="p-2 rounded-3xl bg-[#0D2017]/80 border border-[#C8A86B]/40 shadow-xl">
+                    <img
+                      src="/favicon.svg"
+                      alt="我的第一組高爾夫球桿選擇器 專屬封面縮圖"
+                      referrerPolicy="no-referrer"
+                      className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl object-cover"
+                    />
                   </div>
+                  <a
+                    href="/icon-512.png"
+                    download="myfirstgolfclub-thumbnail.png"
+                    className="mt-2.5 text-[11px] text-[#C8A86B] hover:text-[#e5ca91] underline underline-offset-4 transition-colors"
+                  >
+                    下載 App 封面縮圖 (512×512 PNG)
+                  </a>
                 </div>
               </div>
 
               <div className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-[#1B4332]/50 blur-3xl pointer-events-none" />
-              <div className="absolute right-12 top-12 opacity-10 pointer-events-none text-9xl font-serif">
-                ⛳
-              </div>
             </div>
 
             {/* 核心價值三大特色條 */}

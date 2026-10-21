@@ -1,0 +1,29 @@
+{
+  "name": "我的第一組高爾夫球桿選擇器",
+  "short_name": "高球桿選擇器",
+  "description": "專為高爾夫新手打造的球桿選擇面試系統，量身產出分析專文、核心規格速查卡與 Google Shopping 智慧搜尋串接。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F7F3",
+  "theme_color": "#12291E",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
