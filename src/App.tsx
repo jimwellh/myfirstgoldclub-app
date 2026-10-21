@@ -225,6 +225,15 @@ export default function App() {
               <Mail className="w-3.5 h-3.5" />
               <span>回饋問題: jimwell.h@gmail.com</span>
             </a>
+            <span aria-hidden="true" className="text-stone-600">·</span>
+            <a
+              href="https://github.com/jimwellh/myfirstgoldclub-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#C8A86B] hover:text-[#e2c68c] font-medium transition-colors"
+            >
+              <span>GitHub</span>
+            </a>
           </div>
         </div>
       </footer>

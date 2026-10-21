@@ -532,12 +532,24 @@ export const ResultDashboard: React.FC<ResultDashboardProps> = ({
           <Mail className="w-4 h-4 text-[#12291E]" />
           <span>對選桿邏輯、品牌資料或網站功能有任何建議與問題回饋嗎？</span>
         </div>
-        <a
-          href="mailto:jimwell.h@gmail.com"
-          className="font-semibold text-[#12291E] hover:text-[#9A7B3E] underline transition-colors"
-        >
-          回饋問題：jimwell.h@gmail.com
-        </a>
+        <div className="flex flex-wrap items-center gap-4">
+          <a
+            href="mailto:jimwell.h@gmail.com"
+            className="font-semibold text-[#12291E] hover:text-[#9A7B3E] underline transition-colors"
+          >
+            回饋問題：jimwell.h@gmail.com
+          </a>
+          <span aria-hidden="true" className="text-stone-300">·</span>
+          <a
+            href="https://github.com/jimwellh/myfirstgoldclub-app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-semibold text-[#12291E] hover:text-[#9A7B3E] underline transition-colors"
+          >
+            <span>GitHub</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </div>
     </div>
   );
